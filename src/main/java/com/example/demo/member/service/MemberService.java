@@ -2,6 +2,8 @@ package com.example.demo.member.service;
 
 import com.example.demo.member.controller.dto.MemberCreateRequestDto;
 import com.example.demo.member.controller.dto.MemberResponseDto;
+import com.example.demo.member.exception.CustomException;
+import com.example.demo.member.exception.ExceptionType;
 import com.example.demo.member.repository.IRepository;
 import com.example.demo.member.repository.entity.Member;
 import lombok.AccessLevel;
@@ -25,7 +27,7 @@ public class MemberService {
 
     public MemberResponseDto read(Integer id) {
         Member readMember = memberRepository.read(id)
-                .orElseThrow(() -> new RuntimeException("Can't find Read Member"));
+                .orElseThrow(() -> new CustomException(ExceptionType.USER_NOT_FOUND, "유저를 찾을 수 없습니다. id :" + id));
         return MemberResponseDto.from(readMember);
     }
 
