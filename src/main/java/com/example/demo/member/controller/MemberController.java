@@ -28,7 +28,7 @@ public class MemberController {
                 .body(memberService.create(dto));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MemberResponseDto> read(@PathVariable Integer id) {
         return ResponseEntity.ok(memberService.read(id));
     }
@@ -37,16 +37,17 @@ public class MemberController {
     public ResponseEntity<List<MemberResponseDto>> readAll() {
         return ResponseEntity.ok(memberService.readAll());
     }
+//
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<MemberResponseDto> update(@RequestBody MemberCreateRequestDto dto, @PathVariable Integer id) {
+//        return ResponseEntity
+//                .status(HttpStatus.CREATED)
+//                .body(memberService.update(dto, id));
+//    }
+//
+//    @DeleteMapping("/delete/{id}")
+//    public void delete(@PathVariable Integer id) {
+//        memberService.delete(id);
+//    }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<MemberResponseDto> update(@RequestBody MemberCreateRequestDto dto, @PathVariable Integer id) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(memberService.update(dto, id));
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        memberService.delete(id);
-    }
 }
