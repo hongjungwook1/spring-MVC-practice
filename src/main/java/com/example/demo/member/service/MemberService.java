@@ -25,12 +25,9 @@ public class MemberService {
 
     @Transactional
     public MemberResponseDto create(MemberCreateRequestDto dto) {
-        log.info("회원 생성 요청 : {}", dto);
-
         Member newMember = dto.toEntity();
         Member savedMember = memberRepository.save(newMember);
 
-        log.info("회원 생성 완료 : {}", savedMember);
         return MemberResponseDto.from(savedMember);
     }
 
@@ -44,15 +41,29 @@ public class MemberService {
     @Transactional
     public List<MemberResponseDto> readAll() {
         List<Member> readAllMember = memberRepository.findAll();
-        return readAllMember.stream().map((each) -> MemberResponseDto.from(each)).toList();
+        return readAllMember.stream().map(MemberResponseDto::from).toList();
     }
-//
-//    public MemberResponseDto update(MemberCreateRequestDto dto, Integer id) {
-//        Member updateMember = memberRepository.update(dto.toEntity(), id);
-//        return MemberResponseDto.from(updateMember);
-//    }
-//
-//    public void delete(Integer id) {
-//        memberRepository.delete(id);
-//    }
+
+    @Transactional
+    public MemberResponseDto update(MemberCreateRequestDto dto, Integer id) {
+        Member existingMember = memberRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ExceptionType.USER_NOT_FOUND, "유저를 찾을 수 없습니다. id :" + id));
+
+        Member updatedMember = existingMember.updatedMember(
+                dto.toEntity().getName(),
+                dto.toEntity().getAge(),
+                dto.toEntity().getEmail(),
+                dto.toEntity().getJob(),
+                dto.toEntity().getSpecialty()
+        );
+        Member savedMember = memberRepository.save(updatedMember);
+        return MemberResponseDto.from(savedMember);
+    }
+
+    @Transactional
+    public void delete(Integer id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ExceptionType.USER_NOT_FOUND, "유저를 찾을 수 없습니다. id :" + id));
+        memberRepository.delete(member);
+    }
 }

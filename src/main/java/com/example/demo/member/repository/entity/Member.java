@@ -30,4 +30,7 @@ public class Member {
     @Column(name = "member_createAt")
     LocalDateTime createAt;
 
+    public Member updatedMember(String name, Integer age, String email, String job, String specialty) {
+        return new Member(this.id, name, age, email, job, specialty, this.createAt);
+    }
 }

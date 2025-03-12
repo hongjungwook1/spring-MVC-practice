@@ -37,17 +37,18 @@ public class MemberController {
     public ResponseEntity<List<MemberResponseDto>> readAll() {
         return ResponseEntity.ok(memberService.readAll());
     }
-//
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<MemberResponseDto> update(@RequestBody MemberCreateRequestDto dto, @PathVariable Integer id) {
-//        return ResponseEntity
-//                .status(HttpStatus.CREATED)
-//                .body(memberService.update(dto, id));
-//    }
-//
-//    @DeleteMapping("/delete/{id}")
-//    public void delete(@PathVariable Integer id) {
-//        memberService.delete(id);
-//    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<MemberResponseDto> update(@RequestBody MemberCreateRequestDto dto, @PathVariable Integer id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(memberService.update(dto, id));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        memberService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

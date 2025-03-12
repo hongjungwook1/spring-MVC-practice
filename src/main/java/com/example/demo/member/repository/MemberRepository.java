@@ -13,5 +13,4 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     List<Member> findAll();
 
-
 }

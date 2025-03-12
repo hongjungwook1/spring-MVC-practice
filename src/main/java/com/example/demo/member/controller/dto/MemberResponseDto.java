@@ -3,17 +3,14 @@ package com.example.demo.member.controller.dto;
 import com.example.demo.member.repository.entity.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@Data
 @Getter
 public class MemberResponseDto {
     Integer id;
